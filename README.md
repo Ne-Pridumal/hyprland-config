@@ -8,6 +8,7 @@ Dependencies:
 * waybar
 * hyprpaper
 * wofi
+* wofi-wifi-menu
 * wlogout
 * gtk-theme: catpuccin
 * qt-theme: catpuccin

@@ -1,0 +1,196 @@
+{
+	"layer": "top",
+	"position": "top",
+	"height": 37,
+	"width": 1725,
+	"margin-top": 10,
+	
+  "modules-left": ["custom/power","cpu", "memory", "battery","custom/media", "tray", "hyprland/workspaces"],
+  "modules-center": [],
+  "modules-right": ["backlight","pulseaudio#sound", "pulseaudio#input","bluetooth","network", "clock", "hyprland/language", "custom/notification"],
+
+  "cpu": {
+		"format": "  {usage}%",
+		"tooltip": false,
+    "on-click": "alacritty --title 'systemstatus' -e gotop"
+  },
+  
+  "custom/power":{ 
+    "format":"", 
+		"tooltip": false,
+    "on-click":"wlogout"
+  },
+
+
+  "backlight": {
+    "device": "amdgpu_bl0",
+    "format": "{icon} {percent}%",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "on-scroll-up": "exec light -A 1",
+    "on-scroll-down": "exec light -U 1",
+  },
+
+	"memory": {
+		"format": "  {}%",
+		"tooltip": false
+	},
+	
+
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15,
+    },
+    "format": "{icon} {capacity}%",
+    "format-discharging": "{icon} {capacity}%",
+    "format-charging": "{icon} {capacity}%",
+    "interval": 5,
+    "format-icons": {
+      "discharging": ["󰂎", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+      "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝","󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+    },
+  },
+
+	"bluetooth": {
+	  "format": "",
+    "format-disabled": "󰂲",
+	  "format-connected": " {device_alias}",
+	  "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "on-click-right": "rfkill toggle bluetooth",
+    "on-click": "~/.config/hypr/themes/hypr_arch/rofi/bluetooth.sh",
+	  // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+	  "tooltip-format": "{controller_alias}\\t{controller_address}\\n\\n{num_connections} connected",
+  	"tooltip-format-connected": "{controller_alias}\\t{controller_address}\\n\\n{num_connections} connected\\n\\n{device_enumerate}",
+	  "tooltip-format-enumerate-connected": "{device_alias}\\t{device_address}",
+	  "tooltip-format-enumerate-connected-battery": "{device_alias}\\t{device_address}\\t{device_battery_percentage}%"
+  },
+  "network": {
+      "format": "{icon}",
+      "format-alt": "{ipaddr}/{cidr} {icon}",
+      "format-alt-click": "click-right",
+      "format-wifi": "  {essid} | {signalStrength}%",
+      "format-ethernet": " {ifname}",
+      "format-disconnected": "⚠ Disconnected",
+      "on-click": "~/.config/hypr/themes/hypr_arch/rofi/wifimenu.sh --rofi",
+      "tooltip": false
+  },
+
+	"hyprland/window": {
+		"format": "{class}",
+		"separate-outputs": false,
+  },
+
+
+  //I II III IV V VI VII VIII IX X
+	"hyprland/workspaces": {
+    "all-outputs": true,
+    "disable-scroll": true,
+		"format": "{icon}",
+		"on-click": "activate",
+		"format-icons": {
+      "default": "",
+      "active": "",
+      "urgent": "",
+		},
+		"tooltip": false
+	},
+
+
+	"hyprland/language": {
+	    "format": "{}",
+	    "format-en": "EN",
+	    "format-ru": "RU",
+	},
+
+
+	"tray": {
+		"icon-size": 16,
+		"spacing": 16
+	},
+
+
+	"clock": {
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format-alt": "{:%Y-%m-%d}"
+	},
+
+  "custom/notification": {
+      "tooltip": false,
+      "format": "{icon}",
+      "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+      },
+      "return-type": "json",
+      "exec-if": "which swaync-client",
+      "exec": "swaync-client -swb",
+      "on-click": "swaync-client -t -sw",
+      "on-click-right": "swaync-client -d -sw",
+      "escape": true
+    },
+
+    "pulseaudio#sound": {
+		"scroll-step": 1,
+		"format": "{icon} {volume}%",
+    "format-muted": "󰖁 {volume}%",
+    "format-bluetooth": " {volume}%",
+		"format-icons": {
+      "alsa_output.pci-0000_00_1f.3.analog-stereo": "",
+		  "headphones": "",
+		  "handsfree": "",
+		  "headset": "",
+		  "phone": "",
+		  "portable": "",
+		  "car": "",
+			"default": ["", "", ""]
+		},
+    "on-click": "amixer set Master toggle",
+    "on-click-right": "alacritty --title 'soundboard' -e alsamixer",
+    "on-middle-click": "pavucontrol"
+	},
+
+  "pulseaudio#input": {
+    "format": "{format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": " {volume}%",
+    "format-icons": [""],
+    "on-click-right": "pavucontrol",
+    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
+    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%"
+  },
+
+	"custom/weather": {
+	  "format": "{}",
+	  "interval": 10,
+	  "exec": "~/.config/hypr/themes/hypr_arch/scripts/weather.sh",
+	  "tooltip": false
+	},
+
+
+	"custom/media": {
+	  "format": "{icon}  {}",
+	  "format-icons": {
+		  "default": [""]
+	  },
+	  "max-length": 15,
+	  "interval": 1,
+	  "exec": "cmus-remote -C \"format_print '%F'\"",
+	  "exec-if": "pgrep cmus",
+	  "on-click": "cmus-remote -u",
+	  "on-scroll-up": "cmus-remote --next",
+	  "on-scroll-down": "cmus-remote --prev",
+	  "escape": true,
+	  "tooltip": false
+	},
+	"custom/sep": {
+	  "format": "_",
+	},
+}

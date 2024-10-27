@@ -1,0 +1,12 @@
+@theme "~/.config/rofi/config.rasi"
+
+window {
+  location:   north east;
+  anchor:   north east;
+  height:    25%;
+  width:   25%;
+  orientation:   horizontal;
+  children:   [mainbox];
+  x-offset:   -50px;        
+  y-offset:   58px;
+}

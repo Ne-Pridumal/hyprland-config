@@ -2,7 +2,7 @@
 	"layer": "top",
 	"position": "top",
 	"height": 37,
-	"width": 1725,
+	"width": "100%",
 	"margin-top": 10,
 	
   "modules-left": ["custom/power","cpu", "memory", "battery","custom/media", "tray", "hyprland/workspaces"],

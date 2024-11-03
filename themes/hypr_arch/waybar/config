@@ -12,7 +12,7 @@
   "cpu": {
 		"format": "  {usage}%",
 		"tooltip": false,
-    "on-click": "alacritty --title 'systemstatus' -e gotop"
+    "on-click": "kitty --title 'systemstatus' -e gotop"
   },
   
   "custom/power":{ 
